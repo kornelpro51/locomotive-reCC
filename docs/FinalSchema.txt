@@ -1,0 +1,83 @@
+Random Questions
+
+NodeJS dies (crashes entierly!) on ANY unhandled excpetion. WTF? How can I handle this. 
+ 'Forever' might work
+ 
+How do we prevent someone from selling us the same card twice (In a Digital System). 
+ Add A Unique contraint to a card to card number but account for those inacitve cards
+ Can I just add a BeginTransaction with Knex and continue on with Sequalized un
+ 
+When do we really need transactions/locking
+  1) When an order is places (at least a buy order)
+  2) Any Batch write operation
+  #) ... 
+  
+Reports that might be diffcult to do
+ Find All card marked shipped between the following days (Wrong! Mongo is fine with ranges) 
+ Select all cards that where marked missing after time X and have not been found. 
+ 
+
+
+New Schema: 
+
+Admin (Admin_Id, First_Name, Last_Name, uname, password, role)
+
+Users (User_Id, First_Name, Last_Name, DOB, Phone, email, password) 
+
+Users_Balance (User_Id, Balance, BalanceType) (Mongoose Would Be Better)
+
+Users_Comments (User_Id, Time, Comment) (Would Mongoose Be Better)
+ 
+Users_Address (AID, UID, Title, Company, Street1, Street2, City, State, ZIP, ZIP2)
+
+Cards (Card_Id, Merchant_Id, Number, Pin, LastVerified, Value, Date_Created, Status, BuyRate, SellRate)
+
+Cards_Status_History (Status, ) (Would Mongoose Be Better)
+
+Merchant (Merchant_Id, Name, Desc, IncommingRate, OutgoingRate, VerificationLink, Image)
+
+Merchant_Price_History (Merchant_Id, Price, Timestamp)
+
+BuyOrders (Orders_Id, User_Id, First_Name, Last_Name, Street1, Street2, City, State, ZIP, ZIP2, Pay_Method, ShipMethod, Coupon Code, BrainTreeCC, last_modified, date_purchused, ordertotal, Pile, Batch)
+
+Buy_Order_Products (Orders_ID, CardID, Merchant_Id)
+
+
+Coupons
+
+Addresses
+
+
+
+
+
+orders
+
+orders_products
+
+
+
+Card Orders
+Card Orders Cards
+
+Catagories
+
+Coupons
+
+Inventory
+
+merchants
+
+orders_status
+
+orders_status_history
+
+Orders_status_total
+
+products
+
+
+
+Select All Cards Moved From Review Until Filed In 2 Days Or Less
+Select all purchuses by customer that where completed in less than 2 days.
+Select average completion time of sell order. 

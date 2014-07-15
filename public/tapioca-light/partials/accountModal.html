@@ -1,0 +1,79 @@
+<div class="modal fade in">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" >
+        <div class="row">
+          <div ng-notice=""></div>
+
+          <div class="col-lg-6">
+            <h3><u>Log in</u></h3>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" ng-model="user.username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password"  ng-model="user.password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button type="submit"  ng-click="login(user)" class="btn btn-primary pull-right" style ="z-index:1000">Log In</button>
+          </div><!-- /.col-lg-6 -->
+
+          <!-- Register -->
+          <div class="col-lg-6">
+            <form name="signupForm" novalidate>
+                <h3><u>Register</u></h3>
+                <div class="row">
+                  <!--div ng-notice=""></div-->
+                  <div class="col-lg-6">
+                    <div class="form-group" ng-class="{'has-error': signupForm.firstName.$invalid && signupForm.firstName.$dirty}">
+                      <label for="firstName">First Name</label>
+                      <input type="text" class="form-control" ng-model="usersign.firstName" id="firstName" name="firstName" placeholder="First Name"/>
+                      <span class="error" ng-show="signupForm.firstName.$error.required">Required!</span>
+                    </div>
+                  </div><!-- /.col-lg-6 -->
+                  <div class="col-lg-6">
+                     <div class="form-group" ng-class="{'has-error': signupForm.lastName.$invalid && signupForm.lastName.$dirty}">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" ng-model="usersign.lastName" id="lastName" name="lastName" placeholder="Last Name"/>
+                        <span class="error" ng-show="signupForm.lastName.$error.required">Required!</span>
+                     </div>
+                  </div><!-- /.col-lg-6 -->
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group" ng-class="{'has-error': signupForm.email.$invalid && signupForm.email.$dirty}">
+                      <label for="email">Email address</label>
+                      <input type="text" class="form-control" ng-model="usersign.email" autocomplete="off" id="email" name="email" placeholder="Email"/>
+                      <span class="error" ng-show="signupForm.email.$error.required">Required!</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                     <div class="form-group" ng-class="{'has-error': signupForm.password.$invalid && signupForm.password.$dirty}">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" ng-model="usersign.password" autocomplete="off" name="password" id="password" placeholder="Password"  required>
+                        <span class="error" ng-show="signupForm.password.$error.required">Required!</span>
+                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                     <div class="form-group" ng-class="{'has-error': signupForm.confirm_password.$invalid && signupForm.confirm_password.$dirty}">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" ng-model="usersign.password_verify" name="confirm_password" placeholder="Confirm password" password-verify="usersign.password" required>
+                        <span class="error" ng-show="signupForm.confirm_password.$error.required">Required!</span>
+                        <div class="error"  ng-show="signupForm.confirm_password.$error.passwordVerify">Fields are not equal!</div>
+                     </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success pull-right"
+                        ng-click="create(usersign)"
+                        ng-disabled="!signupForm.$valid || confirm_password.$error.passwordVerify">Sign Up</button>
+            </form>
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

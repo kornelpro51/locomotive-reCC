@@ -1,0 +1,137 @@
+
+<div class="container" ng-controller="sellCtrl">
+
+  <div class="row" style="margin-bottom:30px">
+    <div class="col-lg-6 col-lg-offset-3">
+      <h1 class="text-center">Sell Gift Cards</h1> </br>
+      <p ng-show="!haveOffer">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <div  ng-show="haveOffer" class="progress progress-striped active">
+        <div class="progress-bar" style="width: 40%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-10 col-lg-offset-1 well">
+      <div class="controls-row">
+        <div class="control-group col col-lg-7">
+          <input type="text"  ng-model="card.merchant" class="form-control input-large" typeahead="merchant for merchant in merchants | filter:$viewValue | limitTo:12" placeholder="Enter a Merchant (e.g. Home Depot)">
+        </div>
+        <div class="control-group col col-lg-3">
+          <div class="input-group">
+            <span class="input-group-addon input-large">$</span>
+            <input type="text" class="form-control input-large" placeholder="Card Balance" ng-model="card.value">
+          </div>
+        </div>
+        <div class="control-group col col-lg-2">
+          <button type="submit" ng-click="getOffer(card)" class="btn btn-large btn-primary">Get An Offer</button>
+        </div>
+      </div>
+    </div>
+    <div ng-notice></div>
+  </div>
+
+  <div class="row" ng-show="haveOffer">
+
+    <div class="row">
+      <div class="col-lg-6  col-lg-offset-1">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Offer List</h3>
+          </div>
+
+          <table class="table table-striped">
+
+            <th></th>
+            <th>Merchant</th>
+            <th>Value</th>
+            <th><b>Offer</b></th>
+            <th></th>
+
+            <tr ng-repeat="item in cart">
+              <td> <img ng-src="{{item.image}}" length="25" width="35" /> </td>
+              <td> {{item.name}} </td>
+              <td> {{item.value | currency}} </td>
+              <td> {{item.offer | currency}} </td>
+              <td><button type="submit" class="btn btn-danger btn-xs" ng-click="deleteFromCart(item.id)"> <i class="icon-remove"></i></button>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="row">
+          <h5> <span class="badge">Step 1</span> What would you like to do?</h5>
+          <table class="table table-bordered">
+            <tr>
+                <td>
+                  <h4 class="text-center">
+                    <i class="icon-envelope icon-4x"></i></br>
+                    Mail Cards </br>
+                    <input type="radio" name="order.orderType" ng-model="order.orderType" value="0">
+                    <h5 class="text-center">(Get <b>More</b> Money)</h5>
+                  </h4>
+                </td>
+                <td>
+                  <h4 class="text-center">
+                    <i class="icon-keyboard icon-4x"></i></br>
+                    Enter Online </br>
+                    <input type="radio" name="order.orderType" ng-model="order.orderType" value="1">
+                    <h5 class="text-center">(Get Paid <b>Faster</b>)</h5>
+                  </h4>
+                </td>
+            </tr>
+          </table>
+
+          <h5> <span class="badge">Step 2</span> How would you like to be paid?</h5>
+          <table class="table table-bordered">
+            <tr>
+              <td style="text-align: center; vertical-align: middle; width:50px">
+                <i class="icon-check-sign icon-2x"></i>
+              </td>
+              <td style="text-align: left; vertical-align: middle;">
+                <input type="radio" name="order.payoutType" ng-model="order.payoutType" value="0">  Mailed Check</input>
+              </td>
+              <td style="text-align: center; vertical-align: middle; width:50px">
+                <i class="icon-check-sign icon-2x"></i>
+              </td>
+              <td style="text-align: left; vertical-align: middle;">
+                <input type="radio" name="order.payoutType" ng-model="order.payoutType" value="3">  ACH Deposit</input>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center; vertical-align: middle; width:50px">
+                <i class="icon-check-sign icon-2x"></i>
+              </td>
+              <td style="text-align: left; vertical-align: middle;">
+                <input type="radio" name="order.payoutType" ng-model="order.payoutType" value="2">  PayPal Payment</input>
+              </td>
+              <td style="text-align: center; vertical-align: middle; width:50px">
+                <i class="icon-check-sign icon-2x"></i>
+              </td>
+              <td style="text-align: left; vertical-align: middle;">
+                <input type="radio" name="order.payoutType" ng-model="order.payoutType" value="1">  Amazon Gift Card</input>
+              </td>
+            </tr>
+          </table>
+
+          <table class="table table-bordered">
+            <tr>
+              <td>
+                  <h4 class="text-center">Total Offer </h4>
+                  <h1 class="text-center"> {{totalOffer | currency}} </h1>
+              </td>
+            </tr>
+          </table>
+
+          <button type="button" ng-click="stepTwo(order)" class="btn btn-success btn-lg btn-block">Accept and Continue <i class="icon-double-angle-right"></i></button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

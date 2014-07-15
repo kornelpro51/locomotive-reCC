@@ -1,0 +1,182 @@
+<div class="container-fluid">
+<div class="row-fluid">
+
+	<!-- Main Column -->
+	<div class="span12"> 
+	 
+		<!-- See http://angular-ui.github.io/bootstrap/#/tabs -->
+		<tabs>
+
+			<pane heading="Digital Roster"> 
+
+				<div ng-controller="Roster">
+
+				    <div ng-class="alertClass" style="display: none" ng-style="{display: msgDisplay}">
+
+				        <span>{{message}}</span>
+
+				    </div>
+
+				    <!-- First 4 Remaining -->
+				    <div class="row-fluid">
+				        <div class="well span3" ng-repeat="card in filteredData | filter:{pulledAt:'!', missingAt:'!'}  | limitTo:4">
+				            <h3>
+				                <span style="color:blue;" title="{{card.name}}">  {{card.fileBox}} {{card.fileSection}} :</span>
+				                <span style="color:green;" title="{{card.name}}"> {{card.file.id}} {{card.isLarge}}   </span>
+				            </h3>
+				        </div>
+				    </div>
+
+				    <!-- Input Field -->
+				    <div class="row-fluid">
+
+				        <div class="well span12">
+
+				            <form class="form-inline">
+
+				                <input  ng-model="batch"    class="span2 offset1" size="16" type="text" ng-blur="getBatch()"   placeholder="Enter Batch">
+				                <input  ng-model="order"    class="span2" size="16" type="text" ng-blur="updateCard(true)"   placeholder="Or Enter Order #">
+				                <input  ng-model="id"       class="span2" size="16" type="text" ng-blur="updateCard()"          placeholder="Card Number or File ID " id="cardInput">
+				                <!-- <input  ng-model="order"    class="span3" size="16" type="text" ng-blur="updateCard()"          placeholder="Order #"> -->
+				                <input  ng-model="startBox" class="span2" size="16" type="text" ng-blur="updateCard(true)"   placeholder="Enter Start Box #">
+				                <button class="btn btn-primary" ng-click="updateCard(true)">Show Detailed Progress</button>
+
+				            </form>
+
+				        </div>
+				    </div>
+
+
+				    <!-- Cards Remaining (Filtered) -->
+				    <div class="row-fluid">
+				        <div class="well span12">
+
+				            <h4><b>{{(filteredData | filter:{date_pulled:'!', is_missing:'0'}).length}}</b> Cards Remaining (Excluding Large and Bulk):</h4>
+
+				            <span ng-repeat="card in filteredData | filter:{date_pulled:'!', is_missing:'0'}">
+				                     <span style="color:blue;" title="{{card.name}}">  {{card.file_box}} {{card.file_letter}} :</span>
+				                     <span style="color:green;" title="{{card.name}}"> {{card.filling_id}} {{card.isLarge}}   </span>
+				            </span>
+
+				        </div>
+				    </div>
+
+
+
+				    <!-- Cards Pulled -->
+				    <div class="row-fluid" ng-show="showDetailedProgress">
+				        <div class="well span12">
+
+				            <h4><b>{{(filteredData  | filter:{date_pulled:'!!', is_missing:'0'}).length}}</b> Cards Pulled:</h4>
+
+				            <span ng-repeat="card in filteredData  | filter:{date_pulled:'!!', is_missing:'0'}">
+				                     <span style="color:blue;" title="{{card.name}}">  {{card.file_box}} {{card.file_letter}} :</span>
+				                     <span style="color:green;" title="{{card.name}}"> {{card.filling_id}} {{card.isLarge}}   </span>
+				            </span>
+
+
+				        </div>
+				    </div>
+
+
+				    <!-- Cards Missing -->
+				    <div class="row-fluid" ng-show="showDetailedProgress">
+				        <div class="well span12">
+
+				            <h4>Cards Missing:</h4>
+
+				            <span ng-repeat="card in filteredData  | filter:{is_missing:'1'}">
+				                     <span style="color:blue;" title="{{card.name}}">  {{card.file_box}} {{card.file_letter}} :</span>
+				                     <span style="color:green;" title="{{card.name}}"> {{card.filling_id}} {{card.isLarge}}   </span>
+				            </span>
+
+
+				        </div>
+				    </div>
+
+
+				    <!-- Cards Remaining (Unfiltered) -->
+				    <div class="row-fluid" ng-show="showDetailedProgress">
+				        <div class="well span12">
+
+				            <h4>Cards Remaining (Unfiltered):</h4>
+
+				             <span ng-repeat="card in sortedData">
+				                     <span style="color:blue;" title="{{card.name}}">  {{card.file_box}} {{card.file_letter}} :</span>
+				                     <span style="color:green;" title="{{card.name}}"> {{card.filling_id}} {{card.isLarge}}   </span>
+				            </span>
+
+				        </div>
+				    </div>
+
+
+
+				<!--
+				    <div ng-hide="showProgress">
+
+				        <div class="row-fluid">
+				            <div class="well span12">
+
+				                <h4>Boxes in Batch:</h4>
+
+				                <span ng-repeat="(boxKey, boxVal) in  boxesUnfiltered | orderBy:'+file_box'">
+				                         <span style="color:blue;">  {{boxKey}} </span>
+
+				                </span>
+
+				            </div>
+				        </div>
+
+
+				    </div>
+				-->
+
+				</div> 
+			</pane>
+	
+
+			<pane heading="Mark Shipped"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" class="span2" size="16" ng-model="Cards.fileBox" placeholder="Enter Box" >  
+						<input type="text" class="span2" size="16" ng-model="Cards.fileSection" placeholder="Enter Section">  
+						<input type="text" tabindex="1" class="span8" size="16" ng-model="Cards.input" ng-disabled="disableInput" ng-blur="fileCard()" placeholder="Scan Card to File">  
+					</div> 
+
+				</div>
+
+			</pane>
+										
+			<pane heading="Mark Missing"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" tabindex="1" class="span12" size="16" ng-model="Cards.input" ng-blur="markMissing()" placeholder="Enter File ID To Mark Missing">  
+					</div> 
+
+				</div>
+				
+			</pane>
+					
+			<pane heading="Unmark Missing"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" tabindex="1" class="span12" size="16" ng-model="Cards.input" ng-blur="unmarkMissing()" placeholder="Scan Card to Unmark Missing">  
+					</div> 
+
+				</div>
+				
+			</pane>	
+
+					 
+		</tabs>   
+
+	</div>
+</div>
+
+</div> 

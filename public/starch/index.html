@@ -1,0 +1,83 @@
+<!doctype html>
+<html ng-app="nuAdmin" >
+
+<head>
+		<!-- CSS -->
+		<link href="/starch/assets/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="http://mgcrea.github.com/angular-strap/vendor/bootstrap-datepicker.css" rel="stylesheet">
+		<link href="/starch/assets/css/ngprogress-lite.css" rel="stylesheet" media="screen">
+		<link href="/starch/assets/css/angular-growl.min.css" rel="stylesheet" media="screen">
+		<link href="/starch/assets/css/bootstrap-hw.css" rel="stylesheet" media="screen">
+
+
+  </head>
+
+<body>
+
+	<!-- Inject Nav Bar Here -->
+	<div id="ngProgress-container" class="ng-scope">
+		<div id="ngProgress" style="height: 2px; background-color: rgb(178, 34, 34); color: rgb(178, 34, 34); width: 0%; opacity: 1; ">
+		</div>
+	</div>
+	<nav-bar></nav-bar>
+ 	<div growl></div>
+ 	<div class="container-fluid">
+		<div class="row-fluid">
+			<!-- Inject View  Here -->
+			<ng-view></ng-view>
+		</div>
+	</div>
+
+
+
+	<!-- CDN JS -->
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-resource.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-sanitize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.underscore.min.js"></script>
+	<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.3.0.js"></script>
+
+	<!-- Local JS -->
+	<script src="/starch/app.js"></script>
+
+	<script src="/starch/controllers/alerts.js"></script>
+	<script src="/starch/controllers/buy.js"></script>
+	<script src="/starch/controllers/card.js"></script>
+	<script src="/starch/controllers/customer.js"></script>
+	<script src="/starch/controllers/inventory.js"></script>
+	<script src="/starch/controllers/merchant.js"></script>
+	<script src="/starch/controllers/sell.js"></script>
+	<script src="/starch/controllers/roster.js"></script>
+	<script src="/starch/controllers/session.js"></script>
+	<script src="/starch/controllers/shipping.js"></script>
+    <script src="/starch/controllers/reports.js"></script>
+
+	<script src="/starch/directives/sequalizeWhere.js"></script>
+	<script src="/starch/directives/sequalizeOrder.js"></script>
+	<script src="/starch/directives/statusMapper.js"></script>
+	<script src="/starch/directives/navBar.js"></script> 
+	<script src="/starch/directives/customValidators.js"></script>
+	<script src="/starch/directives/checkboxAll.js"></script>
+	<script src="/starch/directives/ngNotice.js"></script>
+
+	<script src="/starch/filters/cardFilter.js"></script>
+	<script src="/starch/factories/validatorUtils.js"></script>
+
+	<script src="/starch/services/resourceGenerator.js"></script>
+	<script src="/starch/services/flash.js"></script>
+	<script src="/starch/services/session.js"></script>
+	<script src="/starch/services/statusMap.js"></script>
+
+	<script src="/starch/assets/js/moment.min.js"></script>
+	<script src="/starch/assets/js/angular-strap.js"></script>
+	<script src="/starch/assets/js/bootstrap-datepicker.js"></script>
+	<script src="/starch/assets/js/bootstrap.min.js"></script>
+	<script src="/starch/assets/js/ngprogress-lite.min.js"></script>
+	<script src="/starch/assets/js/angular-growl.min.js"></script>
+
+</body>
+
+</html>

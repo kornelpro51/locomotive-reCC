@@ -1,0 +1,23 @@
+.col-hw {
+  padding-left: 5px;
+} 
+
+/* HW */ 
+.col-lg-25 {
+width: 20.0%;
+float: left;
+position: relative;
+min-height: 1px;
+padding-right: 15px;
+padding-left: 15px;
+}
+
+  /* Fix for twitter typeahead in BS3.0 */
+  .twitter-typeahead .tt-hint {
+    display: block;
+    height: 38px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+}

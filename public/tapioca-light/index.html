@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8] -->
+<html  ng-app="tapioca" lang="en">
+  <!-- <![endif] -->
+  <head>
+  <meta charset="utf-8" />
+  <!-- %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"} -->
+  <title></title>
+  <meta content="Bootsrap based theme" name="description" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="favicon.ico" rel="shortcut icon" />
+
+
+  <!-- Bootstrap CSS -->
+  <link href="assets/stylesheets/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="assets/stylesheets/bootstrap-hw.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="assets/stylesheets/bootstrap-typeahead.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="assets/stylesheets/styles-modals.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="assets/stylesheets/ngprogress-lite.css" rel="stylesheet" media="screen">
+  <link href="assets/stylesheets/angular-growl.min.css" rel="stylesheet" media="screen">
+ <!-- Fonts -->
+  <link href="assets/stylesheets/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />
+
+</head>
+  <body>
+
+  <!-- Inject Nav Bar Here -->
+  <!-- <nav-bar></nav-bar> -->
+  <!-- <div growl></div> -->
+  <!-- Inject View  Here -->
+  <!-- <ng-view></ng-view> -->
+  <div id="ngProgress-container" class="ng-scope">
+    <div id="ngProgress" style="height: 2px; background-color: rgb(178, 34, 34); color: rgb(178, 34, 34); width: 0%; opacity: 1; ">
+    </div>
+  </div>
+  <div class="container-fluid">
+    <nav-bar></nav-bar>
+    <div class="row-fluid">
+      <div growl></div>
+      <!-- Inject View  Here -->
+      <ng-view></ng-view>
+    </div>
+  </div>
+
+  <!-- Inject Nav Bar Here -->
+  <tp-footer></tp-footer>
+
+  <!-- CDN: Angular, Angular Recource, jQuerys, Lodash-Underscore, Bootstrap and Angular UI Bootstrap  -->
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.3.1/lodash.underscore.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+
+
+  <!-- Local: Angular Init, Typeahead -->
+  <script src="/tapioca-light/app.js"></script>
+  <script src="/tapioca-light/assets/js/typeahead.js"></script>
+
+<!-- Directives -->
+  <script src="/tapioca-light/directives/navBar.js"></script>
+  <script src="/tapioca-light/directives/tpfooter.js"></script>
+  <script src="/tapioca-light/directives/angular-typeahead.js"></script>
+  <script src="/tapioca-light/directives/ngNotice.js"></script>
+  <script src="/tapioca-light/directives/passwordVerify.js"></script>
+
+
+<!-- Services -->
+  <script src="/tapioca-light/services/flash.js"></script>
+  <script src="/tapioca-light/services/session.js"></script>
+  <script src="/tapioca-light/services/account.js"></script>
+  <script src="/tapioca-light/services/address.js"></script>
+  <script src="/tapioca-light/services/cart.js"></script>
+  <script src="/tapioca-light/services/merchants.js"></script>
+  <script src="/tapioca-light/services/sell.js"></script>
+
+<!-- Controllers -->
+  <script src="/tapioca-light/controllers/account.js"></script>
+  <script src="/tapioca-light/controllers/buy.js"></script>
+  <script src="/tapioca-light/controllers/cart.js"></script>
+  <script src="/tapioca-light/controllers/categories.js"></script>
+  <script src="/tapioca-light/controllers/invoice.js"></script>
+  <script src="/tapioca-light/controllers/sell_invoice.js"></script>
+  <script src="/tapioca-light/controllers/merchant.js"></script>
+  <script src="/tapioca-light/controllers/modals.js"></script>
+  <script src="/tapioca-light/controllers/profile.js"></script>
+  <script src="/tapioca-light/controllers/sell.js"></script>
+
+<!-- Disabled
+  <script src="/tapioca-light/assets/javascripts/bootstrap.js"></script>
+  <script src="/starch/assets/js/angular-strap.js"></script>
+  <script src="/starch/assets/js/bootstrap-datepicker.js"></script>
+  <script src="/tapioca-light/assets/javascripts/script.js"></script>
+  <script src="/tapioca-light/assets/js/moment.min.js"></script>
+-->
+  <script src="/tapioca-light/assets/js/ngprogress-lite.min.js"></script>
+  <script src="/tapioca-light/assets/js/angular-growl.min.js"></script>
+
+</body>
+</html>
+

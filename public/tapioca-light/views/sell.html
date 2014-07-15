@@ -1,0 +1,88 @@
+    <!-- Main Content -->
+    <div id="content" role="main">
+      <section class="section alt" id="promo">
+  <div class="container">
+    <div class="hero-unit narrow">
+
+        <div class="row-fluid">
+            <div class="span6">
+                <h1>Buy Gift Cards</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div class="span6">
+                <img alt="imac" class="pull-right" src="http://placehold.it/430x140&text=Banner" />
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+
+  <div class="row">
+
+  <div class="span2">
+
+
+
+          <ul class="nav nav-list">
+              <li class="nav-header">Categories</li>
+              <li><a href="#">Apparel & Accessories</a></li>
+              <li><a href="#">Arts & Crafts</a></li>
+              <li><a href="#">Automotive</a></li>
+              <li><a href="#">Baby & Maternity</a></li>
+              <li><a href="#">Beauty & Health</a></li>
+              <li><a href="#">Books Music & Movies</a></li>
+              <li><a href="#">Children & Toys</a></li>
+              <li><a href="#">Electronics</a></li>
+              <li><a href="#">Home and Garden</a></li>
+          </ul>
+
+
+
+
+  </div>
+
+  <div class="span10">
+
+
+
+
+
+      <ul class="thumbnails" ng-controller="merchantCtrl">
+
+          <li class="span2" ng-repeat="merchant in merchants">
+
+          <div class="thumbnail">
+            <img data-src="holder.js/170x200" alt="300x200"  src="http://placehold.it/170x100&text=Image">
+              <div class="caption">
+              <h4>{{merchant.name.substring(0, 10)}}</h4>
+               <span>{{merchant.buyRate}}% Off <span>
+              </div>
+          </div>
+
+          </li>
+
+
+      </ul>
+
+  </div>
+
+  </div>
+
+  </div>
+</section>
+<section class="section alt">
+  <div class="container">
+    <div class="hero-unit pull-center">
+      <h1>Got a question?</h1>
+      <p>
+        want to work with us to move your bussines to the next level? Well, dont be afraid
+      </p>
+      <a class="btn btn-primary btn-large" href="contact.html">
+        contact us
+      </a>
+    </div>
+  </div>
+</section>
+    </div>

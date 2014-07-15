@@ -1,0 +1,30 @@
+<!-- Main Content -->
+<div id="content"  ng-controller="myAccountCtrl">
+  <div class="container"> 
+    <div class="row" style="margin-bottom:20px">
+      <div class="col-lg-5" >
+        <h1>My Account  / Order History</h1>
+        <table class="table table-hover" style="table-layout: fixed;">x
+          <th>Order</th>  
+          <th>Date</th>
+          <th>Status</th>  
+          <th>Total</th>   
+          <th>Invoice</th>  
+          <tr ng-repeat="order in orders">
+            <td>#{{order.id}}</td> 
+            <td>{{order.createdAt | date}}</td>
+            <td>{{order.status}}</td>
+            <td>{{order.curTotal}}</td>
+            <td><a ng-href="#/buy/checkout/invoice/{{order.id}}">View</a></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-5 col-lg-offset-2">
+        <h1>Account Options</h1> 
+        <br>
+        <h5>Edit Account Info</h5> 
+        <h5>Change My Password</h5> 
+      </div>
+    </div>
+  </div>
+</div> 

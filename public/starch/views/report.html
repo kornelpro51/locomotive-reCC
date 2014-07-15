@@ -1,0 +1,74 @@
+<div class="container-fluid" >
+	<div class="row-fluid" ng-init="init()" ng-controller="ReportCtl">
+
+		<!-- Left Column -->
+		<div class="span12">
+
+			<!-- Filters -->
+			<div class="row-fluid">
+
+				<div class="well span4">
+
+					<div class="row-fluid">
+						<input type="text" class="span6" size="16"   column="Users.firstName" operator="=" callback="Orders" vartype="string" placeholder="First Name">
+						<input type="text" class="span6" size="16"   column="Users.lastName"  operator="=" callback="Orders" vartype="string" placeholder="Last Name">
+					</div>
+
+					<div class="row-fluid">
+						<input type="text" class="span3" size="16"   column="id"  operator="=" 		callback="Orders" vartype="int" placeholder="Order ID">
+						<input type="text" class="span4" size="16"   column="status"  operator="=" 	callback="Orders" vartype="string" placeholder="Order Status">
+						<input type="text" class="span5" size="16"   column="payType"  operator="="  callback="Orders" vartype="string" placeholder="Payment Type">
+					</div>
+
+				</div>
+
+				<div class="well span6">
+
+					 <div class="row-fluid">
+						<input type="text" class="span4"   column="createdAt" operator=">=" data-date-format="yyyy-mm-dd"   callback="Orders"  vartype="date" placeholder="Ordered From..." bs-datepicker >
+						<input type="text" class="span4"   column="paidAt" operator=">=" data-date-format="yyyy-mm-dd" 	   callback="Orders"  vartype="date"   placeholder="Paid From..." bs-datepicker >
+						<input type="text" class="span4"   column="receivedAt" operator=">=" data-date-format="yyyy-mm-dd"  callback="Orders"  vartype="date"   placeholder="Received From..." bs-datepicker >
+					</div>
+
+					<div class="row-fluid">
+						<input type="text" class="span4"   column="createdAt" operator="<=" data-date-format="yyyy-mm-dd"  callback="Orders"  vartype="date"  placeholder="Ordered To..." bs-datepicker >
+						<input type="text" class="span4"   column="paidAt" operator="<=" data-date-format="yyyy-mm-dd"     callback="Orders"  vartype="date"  placeholder="Paid To..." bs-datepicker >
+						<input type="text" class="span4"   column="receivedAt" operator="<=" data-date-format="yyyy-mm-dd" callback="Orders"  vartype="date"  placeholder="Received To..." bs-datepicker >
+					</div>
+
+				</div>
+
+				<div class="well span2">
+					<div class="row-fluid">
+						<button type="submit" class="btn span12" style="margin-bottom: 10px">Clear</button>
+					</div>
+					<div class="row-fluid">
+						<button type="submit" class="btn btn-primary span12" style="margin-bottom: 10px">Filter</button>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row-fluid">
+                <table class="table table-striped table-bordered table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th class="sorting" sequalize-order column="id" callback="Orders">ID</th>
+                        <th class="sorting" sequalize-order column="createdAt" callback="Orders">First Name</th>
+                        <th class="sorting" sequalize-order column="source" callback="Orders">Last Name</th>
+                        <th class="sorting" sequalize-order column="firstName" callback="Orders">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in Users">
+                        <td>{{user.id}}</td>
+                        <td>{{user.firstName}}</td>
+                        <td>{{user.lastName}}</td>
+                        <td>{{user.email}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+    		</div>
+		</div>
+	</div>
+</div>

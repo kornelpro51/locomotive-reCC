@@ -1,0 +1,264 @@
+<div class="container" ng-controller="buyCtrl" ng-init="initCheckout()">
+
+  <!-- Header -->
+  <div class="row" style="margin-bottom:30px">
+    <div class="col-lg-6 col-lg-offset-3">
+      <h2 class="text-center">Secure Checkout</h2>
+      <h4 class="text-center">All orders are processed securely </h4>
+    </div>
+  </div>
+  <!-- !Header -->
+
+
+  <form novalidate name="orderz" ng-submit="submit()">
+  <!-- Shipping Row -->
+  <div class="row">
+
+
+    <div class="alert alert-warning col-lg-9 col-lg-offset-1"> For security purposes, billing and shipping addresses must be the same address.</div>
+    <span class="error" ng-show="order.$error.url">Invalid URL format!</span>
+
+
+    <!-- Shipping/Billing Address Column -->
+    <div class="col-lg-6 col-lg-offset-1" >
+
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Step 1</span> Shipping/Billing Address</h3>
+        </div>
+        <div class="panel-body">
+          <div class="well" ng-show="selectedAddress">
+            <h4>{{selectedAddress.firstName}} {{selectedAddress.lastName}} <br></h4>
+            <h5>
+              {{selectedAddress.street1}}   {{selectedAddress.street2}} <br>
+              {{selectedAddress.city }} {{selectedAddress.state }} {{selectedAddress.zip }}
+            </h5>
+          </div>
+
+          <h3 ng-show="addressList.length === 0  || selectedAddress === null">No Addresses</h3>
+          <div class="pull-right">
+            <a ng-show="addressList.length > 0" ng-click="changeAddress('change')">Change</a>
+            <a  ng-click="changeAddress('add')">Create New Address</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- !Shipping/Billing  Column -->
+
+
+    <!-- Shipping Method Column -->
+    <div class="col-lg-3 ">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Step 2</span> Shipping Method</h3>
+        </div>
+        <div class="panel-body">
+          <div class="radio">
+            <label>
+              <input type="radio" name="shippingcheck" id="optionsRadios1" value="option1" checked >
+              USPS First Class (Free!)
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !Shipping Method Column -->
+  </div>
+  <!-- !Shipping Row -->
+
+
+  <!-- Billing Row -->
+  <div class="row">
+
+
+    <!-- Payment Method Column -->
+    <div class="col-lg-3 col-lg-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Step 3</span> Payment Method</h3>
+        </div>
+        <div class="panel-body">
+          <div class="radio">
+
+            <input type="radio" ng-model="order.payment.method" data-target="#CreditCard" value="0" onclick="$(this).tab('show')">
+            Credit Card<br>
+            <input type="radio" ng-model="order.payment.method"  data-target="#ACH" value="1" onclick="$(this).tab('show')" >
+            Checking Account (ACH)<br>
+            <input type="radio" ng-model="order.payment.method"  data-target="#Paypal" value="2" onclick="$(this).tab('show')" >
+            PayPal<br>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !Payment Method Column -->
+    <!-- Payment Details Column -->
+    <div class="col-lg-6">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Step 4</span> Payment Details</h3>
+
+
+        </div>
+
+
+        <div class="panel-body">
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="CreditCard">
+
+              <div class="form-group">
+                <label for="CardName" class="col-lg-3 control-label">Name on Card</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" ng-model="order.payment.CC.name"  placeholder="Enter the name as it appears on the credit card" ng-required="(order.payment.method==0)">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="CardNumber" class="col-lg-3 control-label">Card Number</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" ng-model="order.payment.CC.number"    placeholder="No dashes or spaces please" ng-required="(order.payment.method==0)" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ExpDate" class="col-lg-3 control-label">Expiration Date</label>
+                <div class="col-lg-2">
+                  <input type="text" class="form-control" ng-model="order.payment.CC.month"  placeholder="MM" ng-required="(order.payment.method==0)">
+                </div>
+                <div class="col-lg-2">
+                  <input type="text" class="form-control" ng-model="order.payment.CC.year" placeholder="YY" ng-required="(order.payment.method==0)">
+                </div>
+                <label for="CardCvv" class="col-lg-1 control-label">CVV</label ng-required="(order.payment.method==0)">
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" ng-model="order.payment.CC.CVV" ng-required="(order.payment.method==0)">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="tab-pane" id="ACH">
+
+              <div class="form-group">
+                <label for="RoutingNumber" class="col-lg-4 control-label">Routing Number</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" ng-model="order.payment.ACH.routing"  ng-required="(order.payment.method==1)">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="AccountNumber" class="col-lg-4 control-label">Account Number</label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" ng-model="order.payment.ACH.account"   ng-required="(order.payment.method==1)">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="tab-pane" id="Paypal">
+
+              <div class="form-group">
+                <label for="inputEmail1" class="col-lg-3 control-label">Payment Email</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" ng-model="order.payment.paypal.email" ng-required="(order.payment.method==2)" >
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- !Payment Details Column -->
+  </div>
+  <!-- !Billing Row -->
+
+
+  <!-- Review and Confirm Row -->
+  <div class="row">
+    <div class="col-lg-9 col-lg-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Step 5</span> Review and Confirm</h3>
+
+
+        </div>
+
+
+        <div class="panel-body">
+
+          <table ng-controller="cartCtrl" class="table table-hover" style="table-layout: fixed;">
+
+            <th>Merchant</th>
+            <th></th>
+            <th>Value</th>
+            <th>Discount</th>
+            <th>Price</th>
+            <!-- <th></th>-->
+
+            <tr ng-repeat="item in cart">
+
+              <td style="width:75px"> <img data-src="holder.js/170x200" alt="300x200"  src="http://placehold.it/75x50&text=Image"> </td>
+              <td style="width:200px">   {{item.merchant.name}} </td>
+              <td>  {{item.actualValue | currency}}    </td>
+              <td> <span>{{100-item.sellRate}}% Off  <span> </td>
+              <td> <b>{{(item.actualValue/100)*item.sellRate | currency}}  </b> </td>
+              <!-- <td> <span>{{card.cardType}} <span> </td> -->
+            </tr>
+
+          </table>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- !Review and Confirm Row -->
+
+
+  <!-- Review and Confirm Row -->
+  <div class="row">
+    <div class="col-lg-5 col-lg-offset-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="badge">Final Step</span> Submit the Order</h3>
+
+
+        </div>
+
+
+        <div class="panel-body">
+
+
+
+
+
+          <div class="alert alert-info"  >
+
+            <div class="checkbox">
+
+                <input type="checkbox" ng-model="order.terms" name="agreedToTerms" id="terms" ng-required="true"  />
+              <label>
+                I agree to the <b> terms and conditions </b>
+              </label>
+            </div>
+          </div>
+
+
+          <button type="button" class="btn btn-primary btn-lg">Go Back</button>
+          <button type="submit" class="btn btn-success btn-primary btn-lg" ng-disabled="orderz.$invalid"  >Place Order</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- !Review and Confirm Row -->
+
+</form>
+
+
+</div>

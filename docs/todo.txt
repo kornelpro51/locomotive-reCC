@@ -1,0 +1,6 @@
+Encrypt Card Numbers and Pins
+Add Filter Order by Source
+Disable ability to add multiple cards twice	
+Address Validation Before Add
+Add "Last Used" column to address field. Use most recently used for deafult in order. Update on order
+Add Discount and Coupon Module (Post Nov 1?)

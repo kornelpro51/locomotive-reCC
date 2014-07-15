@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var _ = require('underscore'),
+  migrationsPath = process.cwd() + '/db/migrations',
+  migratorOptions = { path: migrationsPath },
+  Sequelize = require('sequelize'),
+  arg = process.argv[2],
+  sequelize,
+  migrator;
+
+var dbhost = 'recc.caydji3lsdwy.us-east-1.rds.amazonaws.com',
+    sequelize = new Sequelize('dev1', 'cardcash_dev', 'kt%K&JPwQPK%0F', {host: dbhost});
+
+migrator = sequelize.getMigrator(migratorOptions);
+
+if (arg === 'up') {
+  sequelize.migrate();
+}
+else if (arg === 'down') {
+  sequelize.migrator.findOrCreateSequelizeMetaDAO().success(function(Meta) {
+    Meta.find({ order: 'id DESC' }).success(function(meta) {
+      if(meta) {
+        migrator = sequelize.getMigrator(_.extend(migratorOptions, meta), true);
+      }
+      migrator.migrate({ method: 'down' });
+    });
+  });
+}
+

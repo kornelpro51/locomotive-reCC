@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardCash Invoice</title>
+    <!--<link href="assets/stylesheets/bootstrap.css" media="screen" rel="stylesheet" type="text/css" />-->
+    <!--&lt;!&ndash; Fonts &ndash;&gt;-->
+    <!--<link href="assets/stylesheets/font-awesome.css" media="screen" rel="stylesheet" type="text/css" />-->
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2">
+            <address>
+                <strong>319 US Highway 130 STE. 123 </strong><br>
+                East Windsor, NJ 08520<br>
+                <abbr title="Phone">P:</abbr> 800-364-0488
+            </address>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-rounded" src="http://placehold.it/200x100">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2">
+        </div>
+        <div class="col-sm-4">Invoice - Order <%= order.id %></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2"></div>
+        <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2">Ship To</div>
+        <div class="col-sm-4">Bill To</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2">
+            <!-- Ship To -->
+            <address>
+                <strong><%= order.firstName %> <%= order.lastName %></strong><br>
+                <%= order.street1 %><br>
+                <%= order.city %>, <%= order.state %> <%= order.zip %><br>
+                <abbr title="Phone">P:</abbr> <%= order.phone %>
+            </address>
+        </div>
+        <div class="col-sm-4">
+            <!-- Bill To -->
+            <address>
+                <strong><%= order.firstName %> <%= order.lastName %></strong><br>
+                <%= order.street1 %><br>
+                <%= order.city %>, <%= order.state %> <%= order.zip %><br>
+                <abbr title="Phone">P:</abbr> <%= order.phone %>
+            </address>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-offset-2">
+            <div>
+                <h5>Phone: <%= order.phone %></h5>
+                <h5>Email: <%= user.email %></h5>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div>BARCODE</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-offset-2">
+            <table class="table">
+                <thead>
+                <th>Qty</th>
+                <th>Products</th>
+                <th>Filling ID</th>
+                <th>Discount Sale</th>
+                <th>Total</th>
+                </thead>
+                <% cards.forEach(function(card) {
+                    if ( !card.file ) {
+                        card.file = { id: 0 };
+                    }
+                %>
+                <tr>
+                    <td>1</td>
+                    <td><%= card.merchant.name %> $<%= card.actualValue %> Gift Card</td>
+                    <td><%= card.file.id %></td>
+                    <td><%= 100 - card.buyRate %>%</td>
+                    <td>$<%= card.actualValue * (card.buyRate / 100) %></td>
+                </tr>
+                <% }) %>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-offset-2">
+            <table class="table">
+                <thead>
+                <th width="40%"></th>
+                <th width="50%"></th>
+                <th width="10%"></th>
+                </thead>
+                <tr>
+                    <td class="text-left">Total Cards: <%= cards.length %></td>
+                    <td class="text-right">Total Face Value:</td>
+                    <td class="text-right cleartext">$352.72</td>
+                </tr>
+                <tr>
+                    <td class="text-left"></td>
+                    <td class="text-right">Discounted Price:</td>
+                    <td class="text-right cleartext">$306.87</td>
+                </tr>
+                <tr>
+                    <td class="text-left"></td>
+                    <td class="text-right">USPS First Class (with Delivery Confirmation):</td>
+                    <td class="text-right cleartext">$0.00</td>
+                </tr>
+                <tr>
+                    <td class="text-left"></td>
+                    <td class="text-right">Gift Certificates:</td>
+                    <td class="text-right cleartext">-$306.87</td>
+                </tr>
+                <tr>
+                    <td class="text-left"></td>
+                    <td class="text-right">Total Cost:</td>
+                    <td class="text-right cleartext">$0.00</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-offset-2">
+            <h5 class="text-center"><strong>You saved $352.72 on your Order</strong></h5>
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 col-md-offset-2">
+            <h5 class="text-left">For Internal use only</h5>
+            <h5 class="text-left">Batch: 204370</h5>
+            <h5 class="text-left">Pile: 1</h5>
+        </div>
+    </div>
+</div>
+</body>
+</html>

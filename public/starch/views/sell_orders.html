@@ -1,0 +1,305 @@
+<div class="container-fluid" >
+	<div class="row-fluid" ng-init="init()" ng-controller="SellOrderCtrl">
+
+		<!-- Left Column -->
+		<div class="span12">
+
+			<!-- Filters -->
+			<div class="row-fluid">
+
+				<div class="well span4">
+
+					<div class="row-fluid">
+						<input type="text" class="span6" size="16" sequalize-where  column="Users.firstName" operator="=" callback="Orders" vartype="string" placeholder="First Name">
+						<input type="text" class="span6" size="16" sequalize-where  column="Users.lastName"  operator="=" callback="Orders" vartype="string" placeholder="Last Name">
+					</div>
+
+					<div class="row-fluid">
+						<input type="text" class="span3" size="16" sequalize-where  column="id"  operator="=" 		callback="Orders" vartype="int" placeholder="Order ID">
+						<input type="text" class="span4" size="16" sequalize-where  column="status"  operator="=" 	callback="Orders" vartype="string" placeholder="Order Status">
+						<input type="text" class="span5" size="16" sequalize-where  column="payType"  operator="="  callback="Orders" vartype="string" placeholder="Payment Type">
+					</div>
+
+				</div>
+
+				<div class="well span6">
+
+					<div class="row-fluid">
+						<input type="text" class="span4" sequalize-where  column="createdAt" operator=">=" data-date-format="yyyy-mm-dd"   callback="Orders"  vartype="date" placeholder="Ordered From..." bs-datepicker >
+						<input type="text" class="span4" sequalize-where  column="paidAt" operator=">=" data-date-format="yyyy-mm-dd" 	   callback="Orders"  vartype="date"   placeholder="Paid From..." bs-datepicker >
+						<input type="text" class="span4" sequalize-where  column="receivedAt" operator=">=" data-date-format="yyyy-mm-dd"  callback="Orders"  vartype="date"   placeholder="Received From..." bs-datepicker >
+					</div>
+
+					<div class="row-fluid">
+						<input type="text" class="span4" sequalize-where  column="createdAt" operator="<=" data-date-format="yyyy-mm-dd"  callback="Orders"  vartype="date"  placeholder="Ordered To..." bs-datepicker >
+						<input type="text" class="span4" sequalize-where  column="paidAt" operator="<=" data-date-format="yyyy-mm-dd"     callback="Orders"  vartype="date"  placeholder="Paid To..." bs-datepicker >
+						<input type="text" class="span4" sequalize-where  column="receivedAt" operator="<=" data-date-format="yyyy-mm-dd" callback="Orders"  vartype="date"  placeholder="Received To..." bs-datepicker >
+					</div>
+
+				</div>
+
+				<div class="well span2">
+
+					<div class="row-fluid">
+						<button type="submit" ng-click="$route.reload()"  class="btn span12" style="margin-bottom: 10px">Clear</button>
+					</div>
+
+					<div class="row-fluid">
+						<button type="submit" ng-click="Orders.getItems()" class="btn btn-primary span12" style="margin-bottom: 10px">Filter</button>
+
+
+					</div>
+
+				</div>
+
+			</div>
+			<div class="row-fluid">
+				<div ng-show="showBatchOperations" class="well">
+
+					<div class="form-inline">
+						<label>Batch Update:</label>
+						<select ng-model="Batch.status"
+								ng-options="value as key for (key, value) in StatusMap.getTable('Sell', 'status')">
+						</select>
+
+						<label>Date Recieved:</label>
+						<input ng-model="Batch.receivedAt" data-date-format="yyyy-mm-dd" bs-datepicker date-type="string"></input>
+						<label>Payment Date:</label>
+						<input ng-model="Batch.paidAt" data-date-format="yyyy-mm-dd" bs-datepicker date-type="string"></input>
+						 <button class="btn btn-primary" ng-click="batchUpdate()">Update</button>
+					</form>
+
+				</div>
+
+			</div>
+			<div class="row-fluid">
+				<div class="{{ Orders.selectedItem && 'span5' || 'span12' }}">
+					<!-- Main Table -->
+					<table class="table table-striped table-bordered table-hover table-condensed"  ng-hide="Orders.selectedItem" >
+
+						<thead>
+							<tr>
+								<th><checkbox-All list="Orders.items"></checkbox-All></th>
+								<th class="sorting" sequalize-order column="id" callback="Orders">ID</th>
+								<th class="sorting" sequalize-order column="createdAt" callback="Orders">Created</th>
+								<th class="sorting" sequalize-order column="source" callback="Orders">Source</th>
+								<th class="sorting" sequalize-order column="firstName" callback="Orders">First Name</th>
+								<th class="sorting" sequalize-order column="lastName" callback="Orders">Last Name</th>
+								<th class="sorting" sequalize-order column="curValue" callback="Orders">Face Value</th>
+								<th class="sorting" sequalize-order column="curTotal" callback="Orders">Cash Value</th>
+								<th class="sorting" sequalize-order column="status" callback="Orders">Status</th>
+								<th class="sorting" sequalize-order column="receivedAt" callback="Orders">Recieved</th>
+								<th class="sorting" sequalize-order column="paidAt" callback="Orders">Paid</th>
+								<th class="sorting" sequalize-order column="orderType" callback="Orders">Type</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="Order in Orders.items" ng-click="setSelectedFetchCards(Order)">
+								<td>  <input type="checkbox" ng-model="Order.isSelected" ng-change="toggleSelected()" ></td>
+								<td>{{Order.id}}</td>
+								<td>{{Order.createdAt | date}}  </td>
+								<td>{{Order.source}}</td>
+								<td>{{Order.user.firstName}}</td>
+								<td>{{Order.user.lastName}}</td>
+								<td>{{Order.curValue | currency:"$"}}  </td>
+								<td>{{Order.curTotal | currency:"$"}}  </td>
+								<td>{{Order.status}} - {{StatusMap.map(Order.status, 'Sell', 'status')}}</td>
+								<td>{{(Order.receivedAt) ? Order.receivedAt : 'No' | date}}  </td>
+								<td>{{(Order.paidAt) ? Order.paidAt : 'No' | date}}  </td>
+								<td>{{StatusMap.map(Order.orderType, 'Sell', 'orderType')}}</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Mini Table For When Detail Pane is Open-->
+					<table class="table table-striped table-bordered table-hover table-condensed"  ng-show="Orders.selectedItem" >
+
+						<thead>
+							<tr>
+								<th><checkbox-All list="Orders.items"></checkbox-All></th>
+								<th class="sorting" sequalize-order column="id" callback="Orders">ID</th>
+								<th class="sorting" sequalize-order column="createdAt" callback="Orders">Created</th>
+								<th class="sorting" sequalize-order column="source" callback="Orders">Source</th>
+								<th class="sorting" sequalize-order column="firstName" callback="Orders">First Name</th>
+								<th class="sorting" sequalize-order column="lastName" callback="Orders">Last Name</th>
+								<th class="sorting" sequalize-order column="curValue" callback="Orders">Face Value</th>
+								<th class="sorting" sequalize-order column="curTotal" callback="Orders">Cash Value</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr ng-repeat="Order in Orders.items" ng-click="setSelectedFetchCards(Order)">
+								<td>  <input type="checkbox" ng-model="Order.isSelected" ng-change="toggleSelected()" ></td>
+								<td>{{Order.id}}</td>
+								<td>{{Order.createdAt | date}}  </td>
+								<td>{{Order.source}}</td>
+								<td>{{Order.user.firstName}}</td>
+								<td>{{Order.user.lastName}}</td>
+								<td>{{Order.curValue | currency:"$"}}  </td>
+								<td>{{Order.curTotal | currency:"$"}}  </td>
+						</tbody>
+					</table>
+
+
+					<!-- Table Pagination -->
+					<div class="pagination">
+						<ul>
+							<li><a ng-click="setPage(-1)">Prev</a></li>
+							<li><a>{{ Orders.page }} of {{ Orders.pages }}</a></li>
+							<li><a ng-click="setPage(+1)">Next</a></li>
+							<li>Show:<input type="text" ng-model="Orders.limit"></li>
+						</ul>
+
+
+						</div>
+					</div>
+
+
+
+
+
+				<!-- Right Column -->
+				<div class="span7" ng-show="Orders.selectedItem">
+					<!-- Tabbed Info Section -->
+					<div class="well">
+
+						<div>
+
+							<!-- See http://angular-ui.github.io/bootstrap/#/tabs -->
+							<tabs>
+
+								<pane heading="Details">
+
+									<div class="row-fluid">
+
+										<div class="span5">
+											<label>Status:</label>
+										<select class="span12"  ng-model="Orders.selectedItem.status"
+												ng-selected="Orders.selectedItem.status"
+												ng-options="value as key for (key, value) in StatusMap.getTable('Sell', 'status')">
+										</select>
+										</div>
+
+										<div class="span3">
+											<label>Order ID:</label><input class="span12" type="text" readonly value="{{Orders.selectedItem.id}}">
+										</div>
+
+										<div class="span4">
+											<label>Source:</label><input class="span12" type="text" readonly value="{{Orders.selectedItem.source}}">
+										</div>
+
+									</div>
+
+									<div class="row-fluid">
+
+										<div class="span7">
+											<label>Order Type:</label>
+											<select class="span12" ng-model="Orders.selectedItem.orderType"
+													ng-selected="Orders.selectedItem.orderType"
+													ng-options="value as key for (key, value) in StatusMap.getTable('Sell', 'orderType')">
+											</select>
+										</div>
+
+										<div class="span5">
+											<label>User ID:</label><input class="span12" type="text" readonly value="{{Orders.selectedItem.userId}}">
+										</div>
+
+									</div>
+
+									<div class="row-fluid">
+										<div class="span6">
+											<label>First Name:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.firstName">
+										</div>
+										<div class="span6">
+											<label>Last Name:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.lastName">
+										</div>
+
+									</div>
+
+									<label>Address Line 1:</label><input class="span12" size="16" type="text"  ng-model="Orders.selectedItem.street1">
+									<label>Address Line 2:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.street2">
+									<label>City:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.city">
+
+									<div class="row-fluid">
+										<div class="span5">
+											<label>State:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.state" >
+										</div>
+										<div class="span4">
+											<label>Zip:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.zip">
+										</div>
+										<div class="span3">
+											<label>Zip Extra:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.zipExtra">
+										</div>
+									</div>
+									<label>Country:</label><input class="span12" size="16" type="text"  ng-model="Orders.selectedItem.country">
+									<label>Phone:</label><input class="span12" size="16" type="text" ng-model="Orders.selectedItem.phone">
+
+								</pane>
+
+
+								<pane heading="Payment">
+
+									<label>Order Type</label><input class="span12" size="16" type="text"
+									value="{{StatusMap.map(Orders.selectedItem.orderType, 'Sell', 'orderType')}}"
+									disabled=disabled>
+									<label>ACH Account #:</label><input class="span12" size="16" type="text"   ng-model="Orders.selectedItem.achAccount">
+									<label>ACH Routing #:</label><input class="span12" size="16" type="text"   ng-model="Orders.selectedItem.achRouting">
+									<label>Paypal Email:</label><input class="span12" size="16" type="text"  ng-model="Orders.selectedItem.paypalEmail">
+									<label>Amazon Email:</label><input class="span12" size="16" type="text"  ng-model="Orders.selectedItem.amazonEmail">
+
+								</pane>
+
+								<pane heading="Cards">
+
+									<h4><b>Filter:</b></h4>
+									<input type="text" ng-model="search.merchantName" placeholder="Merchant" class="span3">
+									<input type="text" ng-model="search.actualValue" placeholder="Value" class="span3">
+									<input type="text" ng-model="search.file.id" placeholder="File ID" class="span3">
+									<input type="text" ng-model="search.cardType" placeholder="Type" class="span3">
+
+
+									<table class="table table-striped table-bordered table-hover table-condensed">
+
+										<thead>
+											<tr>
+												<th>Merchant</th>
+												<th>Entered</th>
+												<th>Face Value</th>
+												<th>Rate</th>
+												<th>Payout</th>
+												<th>Number</th>
+												<th>Pin</th>
+												<th>File ID</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="Card in Cards.items | cardFilter:search" ng-click="Orders.setSelectedItem(Order)">
+												<td title="{{Card.id}}">{{Card.merchant.name}}</td>
+												<td>{{Card.enteredValue | currency:"$"}}</td>
+												<td><input type="text"  style="width:50px;"  ng-model="Card.actualValue"></td>
+												<td><input type="text"  style="width:25px;"  ng-model="Card.sellRate"></td>
+												<td>{{((Card.enteredValue / 100) * Card.sellRate) | currency:"$"}}</td>
+												<td><input type="text"   style="width:150px;" ng-model="Card.cardNumber"></td>
+												<td><input type="text"   style="width:50px;" ng-model="Card.cardPin"></td>
+												<td><button ng-click="Cards.fileCard(Card)"> {{Cards.generateFileButton(Card)}} </button> </td>
+											</tr>
+										</tbody>
+									</table>
+
+							</pane>
+
+						</tabs>
+
+					</br>
+					<div class="row-fluid">
+						<button ng-click="saveOrder(Orders.selectedItem)" class="btn btn-primary span6" id="btn_save">Save</button>
+						<button ng-click="close()" class="btn btn-primary span6" id="btn_close">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+

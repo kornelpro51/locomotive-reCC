@@ -1,0 +1,74 @@
+
+<div class="container-fluid" ng-controller="Inventory">
+<div class="row-fluid">
+
+	<!-- Main Column -->
+	<div class="span12"> 
+	 
+		<!-- See http://angular-ui.github.io/bootstrap/#/tabs -->
+		<tabs>
+
+			<pane heading="File Card"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" class="span2" size="16" ng-model="Cards.batch" placeholder="Enter Batch" >  
+						<input type="text" class="span2" size="16" ng-model="Cards.pile" placeholder="Enter Pile">  
+						<input type="text" tabindex="1" class="span8" size="16" ng-model="Cards.input" ng-disabled="disableInput" ng-blur="fileCard()" placeholder="Scan Card to Mark Shipped">  
+					</div> 
+
+				</div>
+
+			</pane>
+					
+
+			<pane heading="File Order"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" class="span2" size="16" ng-model="Cards.fileBox" placeholder="Enter Box">  
+						<input type="text" class="span2" size="16" ng-model="Cards.fileSection" placeholder="Enter Section">  
+						<input type="text" tabindex="1" class="span8" size="16" ng-model="Cards.input" ng-blur="fileOrder()" placeholder="Enter Order to File"> 
+					</div> 
+
+				</div>
+				
+			</pane>
+					
+
+			<pane heading="Mark Missing"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" tabindex="1" class="span12" size="16" ng-model="Cards.input" ng-blur="markMissing()" placeholder="Enter File ID To Mark Missing">  
+					</div> 
+
+				</div>
+				
+			</pane>
+
+			<pane heading="Unmark Missing"> 
+
+				<div class="well span12"> 
+
+					<div class="row-fluid">   
+						<input type="text" tabindex="1" class="span12" size="16" ng-model="Cards.input" ng-blur="unmarkMissing()" placeholder="Scan Card to Unmark Missing">  
+					</div> 
+
+				</div>
+				
+			</pane>
+					
+	
+ 		
+ 
+					 
+		</tabs>   
+
+	</div>
+</div>
+
+</div> 

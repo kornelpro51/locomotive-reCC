@@ -1,0 +1,23 @@
+
+About Our Stack:
+
+Our Stack Utilizes:
+	Node.JS (Server), 
+	Locomotive (NodeJS MVC built on Express), 
+	Sequelize (ORM for RDBMS),
+	Faker (Test Data Generator),
+	Mongoose (ODM for MongoDB), 
+	Passport (Auth Middleware for Express (and thus Locomotive),
+	AngularJS (Client side MVC),
+	TwitterBootstrap (Web UI Framework)
+
+Locomotve:
+ Must be installed globally with root privileges, not as part of package json
+	
+Sequelize Gotchas:
+ By Deafult, columns of tables created by Sequelize will allow null/empty variables.
+	
+	Will empty stings on non string data that allow null (but dont specificy nonempty work 
+	
+	
+	

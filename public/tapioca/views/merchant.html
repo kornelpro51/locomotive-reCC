@@ -1,0 +1,77 @@
+    <!-- Main Content -->
+    <div id="content" role="main" ng-controller="merchantCtrl" >
+      <section class="section alt" id="promo">
+  <div class="container">
+    <div class="hero-unit narrow">
+
+        <div class="row-fluid">
+            <div class="span3">
+                <img alt="imac"src="http://placehold.it/330x140&text=Banner" />
+            </div>
+            <div class="span8">
+                <h2>{{merchant.name}} Gift Cards</h2>
+                <p>{{merchant.description}}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+
+  <div class="row">
+
+  <div class="span2">
+
+
+
+       <h5>Guide To Gift Cards:</h5>
+
+
+
+
+  </div>
+
+  <div class="span10">
+
+
+
+<ul class="nav nav-tabs" style = "margin-bottom:0px"> 
+  <li class="active"><a href="#">All Cards</a></li>
+  <li><a href="#"><i class="icon-credit-card"></i>  Physical</a></li>
+  <li><a href="#"><i class="icon-desktop"></i>  Electronic</a></li>
+  <li><a href="#"><i class="icon-qrcode"></i> Mobile</a></li>
+</ul>
+
+
+
+      <table class="table table-hover" style="table-layout: fixed;">
+      
+        <th>Merchant</th> 
+        <th></th>
+        <th>Value</th>
+        <th>Discount</th>
+        <th>Price</th> 
+
+      <tr ng-repeat="card in merchant.cards"> 
+
+        <td style="width:75px"> <img data-src="holder.js/170x200" alt="300x200"  src="http://placehold.it/75x50&text=Image"> </td>
+        <td style="width:200px">   {{merchant.name.substring(0, 10)}} </td>
+        <td>  {{card.actualValue | currency}}    </td> 
+        <td> <span>{{card.sellRate}}% Off  <span> </td> 
+        <td> <b>{{(card.actualValue/100)*card.sellRate | currency}}  </b> </td> 
+        <td> <span>{{card.cardType}} <span> </td>
+        <td> <button type="submit" class="btn btn-primary" ng-click="addToCart(card)"> <i class="icon-shopping-cart"></i> Add to Cart</button> </td
+      </tr>
+
+      </table>
+
+
+
+
+  </div>
+
+  </div>
+
+  </div>
+</section>

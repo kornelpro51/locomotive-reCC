@@ -1,0 +1,73 @@
+    <!-- Main Content -->
+  <div id="content"  ng-controller="MerchantCtrl">
+  <div class="container">
+    <div class="row" style="margin-bottom:20px">
+      <div class="col-lg-3">
+        <img alt="imac"src="http://placehold.it/270x140&text=Banner" />
+      </div>
+      <div class="col-lg-9">
+        <h2>{{merchant.name}} Gift Cards</h2>
+        <p>{{merchant.description}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <h5><b>Gift Card Types:</b></h5>
+        <ul style="list-style-type: none; list-style-position:inside; padding-left: 11px; padding-top: 1px;">
+          <li>
+            <h4>
+            <i class="icon-credit-card"></i>
+            Physical Gift Card
+            </h4>
+            <p>Mailed within 2 Business days. Can be used in store locations.</p>
+          </li>
+          <li>
+            <h4>
+            <i class="icon-desktop"></i>
+            Electronic Gift Card
+            </h4>
+            <p>Emailed Instantly. Can be used to shop online</p>
+            </li>
+          <li>
+            <h4>
+            <i class="icon-qrcode"></i>
+            Printable Gift Card
+            </h4>
+            <p>Emailed Instantly. Can be downloaded and redeemed in-store</p>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-9">
+
+        <!--<ul class="nav nav-tabs" style="border-bottom:0">-->
+          <!--<li class="active"><a href="#" ng-model="filterValue" ng-value="">All Cards</a></li>-->
+          <!--<li><a ng-model="filterValue" ng-value="0">Physical Cards</a></li>-->
+          <!--<li><a ng-model="filterValue" ng-value="1">Electronic Cards</a></li>-->
+          <!--<li><a ng-model="filterValue" ng-value="2">Printable Cards</a></li>-->
+        <!--</ul>-->
+
+        <tabset>
+          <tab ng-repeat="tab in tabs" heading="{{tab.name}}" active="tab.active" select="selected(tab.value)"></tab>
+        </tabset>
+
+        <table class="table table-hover" style="table-layout: fixed;">
+          <th>Merchant</th>
+          <th></th>
+          <th>Value</th>
+          <th>Discount</th>
+          <th>Price</th>
+          <!-- <th></th>-->
+          <th></th>
+          <tr ng-repeat="card in cards">
+            <td style="width:75px"> <img data-src="holder.js/170x200" alt="300x200"  src="http://placehold.it/75x50&text=Image"> </td>
+            <td style="width:200px">   {{merchant.name.substring(0, 10)}} </td>
+            <td>  {{card.actualValue | currency}}    </td>
+            <td> <span>{{100-card.sellRate}}% Off  <span> </td>
+            <td> <b>{{(card.actualValue/100) * card.sellRate | currency}}  </b> </td>
+            <!-- <td> <span>{{card.cardType}} <span> </td> -->
+            <td> <button type="submit" class="btn btn-primary" ng-click="addToCart($index)"> <i class="icon-shopping-cart"></i> Add to Cart</button> </td
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
